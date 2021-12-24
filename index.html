@@ -25,6 +25,10 @@
             <input type="checkbox" id="elenade">
         </div>
         <div>
+            <h3>Warned Directly?</h3>
+            <input type="checkbox" id="warned">
+        </div>
+        <div>
             <h3>Server?</h3>
             <form id="server">
                 <input type="radio" id="1" name="server" value="E/RP">
@@ -36,6 +40,10 @@
                 <input type="radio" id="4" name="server" value="EXPERIMENTAL">
                 <label for="4">EXPERIMENTAL</label>
             </form>
+        </div>
+        <div>
+            <h3>Name and SteamID:</h3>
+            <input type="text" id="name" value="|UGA| sourTaste000 (76561198439176472@steam)">
         </div>
     </fieldset>
     <fieldset>
@@ -62,6 +70,13 @@
         let ltap = document.getElementById('ltap').checked;
         let elenade = document.getElementById('elenade').checked;
         let server = document.querySelector('input[name="server"]:checked').id;
+        let name = document.getElementById('name').value;
+        let warned = document.getElementById('warned').checked;
+
+        let splitName = name.split('(');
+        let nameOnly = splitName[0];
+        let steamID = splitName[1].split('@')[0];
+
         document.getElementById('kills').oninput = function () {
             tk = document.getElementById('kills').value;
             update();
@@ -78,6 +93,14 @@
             server = document.querySelector('input[name="server"]:checked').id;
             update();
         }
+        document.getElementById('name').oninput = function () {
+            name = document.getElementById('name').value;
+            update();
+        }
+        document.getElementById('warned').onchange = function () {
+            warned = document.getElementById('warned').checked;
+            update();
+        }
         document.getElementById('copybutton').onclick = function () {
             let value = document.getElementById('copyvalue');
             value.select();
@@ -87,6 +110,9 @@
         let reason = '';
 
         function update() {
+            splitName = name.split('(');
+            nameOnly = splitName[0];
+            steamID = splitName[1].split('@')[0];
             if (tk == '') {
                 document.getElementById('copyvalue').value = `Enter the number of kills.`;
                 return;
@@ -101,20 +127,20 @@
                     reason = `Teamkill x${tk}`;
                 }
                 if (tk >= 1 && tk <= 6) {
-                    document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 week\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 week\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 } else if (tk > 6 && tk <= 11) {
-                    document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 } else {
-                    document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill ${reason}`;
+                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill ${reason}`;
                 }
                 return;
             }
 
             if (tk <= 3) {
                 if (ltap) {
-                    document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 day\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill x${tk} + LTAP`;
+                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 day\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill x${tk} + LTAP`;
                 } else {
-                    document.getElementById('copyvalue').value = `• Name of Warned User: UPDATEHERE\n• Was the User Warned directly? UPDATEHERE\n• ID of Warned User: https://steamid.io/lookup/UPDATEHERE\n• Server that Warning Took Place On (Just #): ${server}\n• Reason for warning: Teamkill x${tk}`;
+                    document.getElementById('copyvalue').value = `• Name of Warned User: ${nameOnly}\n• Was the User Warned directly? ${warned ? "yes" : "no"}\n• ID of Warned User: https://steamid.io/lookup/${steamID}\n• Server that Warning Took Place On (Just #): ${server}\n• Reason for warning: Teamkill x${tk}`;
                 }
                 return;
             } else {
