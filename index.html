@@ -120,18 +120,18 @@
 
             if (elenade) {
                 if (ltap) {
-                    reason = `Teamkill x${tk} + LTAP`;
+                    reason = `Elenade x${tk} + LTAP`;
                     tk = `${parseInt(tk) + 1}`;
                 } else {
                     tk = tk = document.getElementById('kills').value;
-                    reason = `Teamkill x${tk}`;
+                    reason = `Elenade x${tk}`;
                 }
                 if (tk >= 1 && tk <= 6) {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 week\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 } else if (tk > 6 && tk <= 11) {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 } else {
-                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill ${reason}`;
+                    document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 }
                 return;
             }
