@@ -1,0 +1,149 @@
+<!--%100 Hardcoded-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ban Calculator</title>
+</head>
+
+<body>
+    <fieldset id="input">
+        <legend>Input values:</legend>
+        <div>
+            <h3># of kills</h3>
+            <input type="text" id="kills" value="0">
+        </div>
+        <div>
+            <h3>LTAP?</h3>
+            <input type="checkbox" id="ltap">
+        </div>
+        <div>
+            <h3>Elenade?</h3>
+            <input type="checkbox" id="elenade">
+        </div>
+        <div>
+            <h3>Server?</h3>
+            <form id="server">
+                <input type="radio" id="1" name="server" value="E/RP">
+                <label for="1">E/RP</label>
+                <input type="radio" id="2" name="server" value="MEMES">
+                <label for="2">MEMES</label>
+                <input type="radio" id="3" name="server" value="ANARCHY">
+                <label for="3">ANARCHY</label>
+                <input type="radio" id="4" name="server" value="EXPERIMENTAL">
+                <label for="4">EXPERIMENTAL</label>
+            </form>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend id="legend">Text to paste:</legend>
+        <textarea id="copyvalue" cols="100" rows="5" readonly></textarea>
+        <button id="copybutton">Copy</button>
+    </fieldset>
+</body>
+
+<script>
+    let banScale = new Map();
+    banScale.set('3', '1 day');
+    banScale.set('4', '3 days');
+    banScale.set('5', '1 week');
+    banScale.set('6', '1 week');
+    banScale.set('7', '1 month');
+    banScale.set('8', '1 month');
+    banScale.set('9', '3 months');
+    banScale.set('10', '3 months');
+    banScale.set('11', '1 year');
+
+    let tk = document.getElementById('kills').value;
+    let ltap = document.getElementById('ltap').checked;
+    let elenade = document.getElementById('elenade').checked;
+    let server = document.querySelector('input[name="server"]:checked').id;
+    document.getElementById('kills').oninput = function () {
+        tk = document.getElementById('kills').value;
+        update();
+    }
+    document.getElementById('ltap').onchange = function () {
+        ltap = document.getElementById('ltap').checked;
+        update();
+    }
+    document.getElementById('elenade').onchange = function () {
+        elenade = document.getElementById('elenade').checked;
+        update();
+    }
+    document.getElementById('server').onchange = function () {
+        server = document.querySelector('input[name="server"]:checked').id;
+        update();
+    }
+    document.getElementById('copybutton').onclick = function () {
+        let value = document.getElementById('copyvalue');
+        value.select();
+        document.execCommand('copy');
+    }
+
+    let reason = '';
+
+    function update() {
+        if (tk == '') {
+            document.getElementById('copyvalue').value = `Enter the number of kills.`;
+            return;
+        }
+
+        if (elenade) {
+            if (ltap) {
+                reason = `Teamkill x${tk} + LTAP`;
+                tk = `${parseInt(tk) + 1}`;
+            } else {
+                tk = tk = document.getElementById('kills').value;
+                reason = `Teamkill x${tk}`;
+            }
+            if (tk >= 1 && tk <= 6) {
+                document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 week\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+            } else if (tk > 6 && tk <= 11) {
+                document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+            } else {
+                document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill ${reason}`;
+            }
+            return;
+        }
+
+        if (tk <= 3) {
+            if (ltap) {
+                document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: 1 day\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill x${tk} + LTAP`;
+            } else {
+                document.getElementById('copyvalue').value = `• Name of Warned User: UPDATEHERE\n• Was the User Warned directly? UPDATEHERE\n• ID of Warned User: https://steamid.io/lookup/UPDATEHERE\n• Server that Warning Took Place On (Just #): ${server}\n• Reason for warning: Teamkill x${tk}`;
+            }
+            return;
+        } else {
+            if (ltap) {
+                reason = `Teamkill x${tk} + LTAP`;
+                tk = `${parseInt(tk) + 1}`;
+            } else {
+                tk = tk = document.getElementById('kills').value;
+                reason = `Teamkill x${tk}`;
+            }
+            document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+        }
+
+    }
+</script>
+
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
+
+    fieldset {
+        margin-bottom: 5vh;
+    }
+
+    #input {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+</style>
+
+</html>
