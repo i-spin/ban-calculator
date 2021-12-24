@@ -136,7 +136,7 @@
                 return;
             }
 
-            if (tk <= 3) {
+            if (tk < 3) {
                 if (ltap) {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 day\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): Teamkill x${tk} + LTAP`;
                 } else {
@@ -151,9 +151,8 @@
                     tk = tk = document.getElementById('kills').value;
                     reason = `Teamkill x${tk}`;
                 }
-                document.getElementById('copyvalue').value = `• Name of Banned User: UPDATEHERE\n• ID of Banned User: https://steamid.io/lookup/UPDATEHERE\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+                document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
             }
-
         }
     });
 </script>
