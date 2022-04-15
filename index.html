@@ -68,6 +68,7 @@
         banScale.set('11', '1 year');
 
         let tk = document.getElementById('kills').value;
+        let tk_ltap = 0;
         let ltap = document.getElementById('ltap').checked;
         let elenade = document.getElementById('elenade').checked;
         let server = document.querySelector('input[name="server"]:checked').id;
@@ -84,6 +85,9 @@
         }
         document.getElementById('ltap').onchange = function () {
             ltap = document.getElementById('ltap').checked;
+            if (!ltap) {
+                tk_ltap = 0;
+            }
             update();
         }
         document.getElementById('elenade').onchange = function () {
@@ -121,8 +125,9 @@
 
             if (elenade) {
                 if (ltap) {
+                    tk_ltap++;
                     reason = `Elenade x${tk} + LTAP`;
-                    tk = `${parseInt(tk) + 1}`;
+                    tk = `${parseInt(tk) + tk_ltap}`;
                 } else {
                     tk = tk = document.getElementById('kills').value;
                     reason = `Elenade x${tk}`;
@@ -146,8 +151,9 @@
                 return;
             } else {
                 if (ltap) {
+                    tk_ltap++;
                     reason = `Teamkill x${tk} + LTAP`;
-                    tk = `${parseInt(tk) + 1}`;
+                    tk = `${parseInt(tk) + tk_ltap}`;
                 } else {
                     tk = tk = document.getElementById('kills').value;
                     reason = `Teamkill x${tk}`;
