@@ -57,15 +57,13 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let banScale = new Map();
-        banScale.set('3', '1 day');
-        banScale.set('4', '3 days');
-        banScale.set('5', '1 week');
-        banScale.set('6', '1 week');
-        banScale.set('7', '1 month');
-        banScale.set('8', '1 month');
-        banScale.set('9', '3 months');
-        banScale.set('10', '3 months');
-        banScale.set('11', '1 year');
+        banScale.set('3', '1 day/3 days/warning');
+        banScale.set('4', '1 week');
+        banScale.set('5', '1 month');
+        banScale.set('6', '1 month');
+        banScale.set('7', '3 months');
+        banScale.set('8', '3 months');
+        banScale.set('9', '1 year');
 
         let tk = document.getElementById('kills').value;
         let tk_ltap = 0;
@@ -134,7 +132,7 @@
                 }
                 if (tk >= 1 && tk <= 6) {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 week\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
-                } else if (tk > 6 && tk <= 11) {
+                } else if (tk > 6 && tk <= 9) {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
                 } else {
                     document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: 1 year\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
