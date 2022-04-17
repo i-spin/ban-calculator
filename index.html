@@ -156,7 +156,7 @@
                     tk = tk = document.getElementById('kills').value;
                     reason = `Teamkill x${tk}`;
                 }
-                document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk)}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
+                document.getElementById('copyvalue').value = `• Name of Banned User: ${nameOnly}\n• ID of Banned User: https://steamid.io/lookup/${steamID}\n• Length of ban: ${banScale.get(tk) ?? "1 year"}\n• Server Ban Took Place On(Just #): #${server}\n• Reason for ban(if teamkill, how many): ${reason}`;
             }
         }
     });
